@@ -28,123 +28,25 @@ h1 {
   font-family: "Tomorrow", sans-serif;
 }
 
+/* body > * */
 header,
 main,
 footer {
   background-color: #e5ebee;
   max-width: 48em;
+  margin: 1em auto;
   padding: 1em;
   box-shadow: 0.5em 0.5em #0005;
 }
 
+/* body > *:first-child */
 header {
   margin: 1em auto auto;
-  display: flex;
 }
 
-header div.header-logo h1 {
-  font-family: "Genos", sans-serif;
-  font-weight: 700;
-  font-size: 3em;
-  letter-spacing: 0.1em;
-}
-
-header div.header-logo h1 svg {
-  width: 1em;
-  height: 1em;
-  margin-right: 0.1em;
-  vertical-align: text-top;
-}
-
-header div.header-logo {
-  flex: 1;
-  white-space: nowrap;
-}
-
-header div.header-logo a {
-  color: inherit;
-}
-
-header div.header-logo a:hover {
-  color: #22a;
-  text-decoration: none;
-}
-
-header div.header-logo a:hover svg path {
-  stroke: #22a;
-}
-
-header div.header-logo a:hover svg path#fill {
-  fill: #00b7ff;
-}
-
-header nav {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-header nav a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #007aaa;
-}
-
-header nav a svg {
-  width: 3em;
-  height: 3em;
-  margin-bottom: 0.25em;
-}
-
-header nav a svg.svg-allstroke * {
-  stroke: #007aaa;
-  fill: none;
-}
-
-header nav a svg.svg-allfill * {
-  fill: #007aaa;
-  stroke: none;
-}
-
-header nav a:hover {
-  color: #10adeb;
-}
-
-header nav a:hover svg.svg-allstroke * {
-  stroke: #10adeb;
-  fill: none;
-}
-
-header nav a:hover svg.svg-allfill * {
-  fill: #10adeb;
-  stroke: none;
-}
-
-main {
-  margin: 1em auto;
-}
-
+/* body > *:last-child */
 footer {
   margin: 0 auto 2em auto;
-}
-
-.footer-social a:hover {
-  text-decoration: none;
-}
-
-.footer-social:nth-child(even) {
-  margin-top: 1em;
-}
-
-.github-icon {
-  padding-right: 5px;
-  vertical-align: middle;
-}
-
-.github-username:hover {
-  text-decoration: underline;
 }
 
 @media (max-width: 62.5rem) {
@@ -152,27 +54,15 @@ footer {
     font-size: 1rem;
   }
 
-  header {
-    flex-direction: column;
-  }
-
   header,
   main,
   footer {
     max-width: inherit;
+    margin: 1em 1em;
   }
 
   header {
     margin: 1em 1em 1em;
-    display: flex;
-  }
-
-  header div.header-logo {
-    place-self: center;
-  }
-
-  main {
-    margin: 1em 1em;
   }
 
   footer {

@@ -1,14 +1,39 @@
 ---
-import Head from '../components/Head.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Head from "../components/Head.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const featuredProjects = await getCollection("projects");
 ---
 
 <!doctype html>
 <html lang="en">
-  <Head/>
+  <Head />
+  <style>
+    a.featured-project {
+      background: linear-gradient(to right, #aaa, #ccc);
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      border-radius: 1em;
+      clip-path: content-box;
+      color: #000;
+    }
+
+    a.featured-project img {
+      width: 5em;
+      height: auto;
+    }
+
+    a.featured-project span {
+      margin-left: 1em;
+    }
+  </style>
   <body>
-    <Header/>
+    <Header />
     <main id="intro">
       <!-- display: block -->
       <p>
@@ -21,18 +46,32 @@ import Footer from '../components/Footer.astro';
         something in this website that interests you!
       </p>
     </main>
-    <main id="projects">
-      <h1>Projects</h1>
+    <main id="featured-projects">
+      <h1>Featured Projects</h1>
       <p>
         Although I have worked on several personal projects throughout my
         lifetime, below is what I'm comfortable showing off. Enjoy!
       </p>
-      <p>List of projects here.</p>
+      {
+        featuredProjects.map((project) => {
+          return (
+            <a href={"/projects#" + project.slug} class="featured-project">
+                {project.data.showImage && (
+                  <Image src={project.data.image} alt={project.data.title} />
+                )}
+                <span>{project.data.title}</span>
+            </a>
+          );
+        })
+      }
+      <a href="/projects">
+        <p>Click here for more projects.</p>
+      </a>
     </main>
     <main id="blog">
       <h1>Blog</h1>
       <p>List of blog posts here.</p>
     </main>
-    <Footer/>
+    <Footer />
   </body>
 </html>

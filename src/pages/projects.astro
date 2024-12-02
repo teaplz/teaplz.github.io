@@ -1,0 +1,63 @@
+---
+import Head from "../components/Head.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => b.data.pubDate?.valueOf() ?? 0 - a.data.pubDate?.valueOf() ?? 0
+);
+---
+
+<!doctype html>
+<html lang="en">
+  <Head />
+  <style>
+    main div h2,
+    main div h3 {
+      margin: 0;
+    }
+
+    main div img {
+      float: right;
+      width: 50%;
+      height: auto;
+    }
+
+    @media (max-width: 40rem) {
+      main div img {
+        width: 100%;
+      }
+    }
+  </style>
+  <body>
+    <Header />
+    <main id="projects">
+      <h1>Projects</h1>
+      <p>
+        Although I have worked on several personal projects throughout my
+        lifetime, below is what I'm comfortable showing off. Enjoy!
+      </p>
+      {
+        projects.map(async (project) => {
+          const { Content } = await project.render();
+          return (
+            <div id={project.slug}>
+              <h2>{project.data.title}</h2>
+              <h3>{project.data.datePeriod}</h3>
+              {project.data.showImage && (
+                <Image src={project.data.image} alt={project.data.title} />
+              )}
+              <p>
+                <Content />
+              </p>
+            </div>
+          );
+        })
+      }
+    </main>
+    <Footer />
+  </body>
+</html>

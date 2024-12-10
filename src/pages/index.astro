@@ -19,17 +19,23 @@ const featuredProjects = await getCollection("projects");
       display: flex;
       align-items: center;
       border-radius: 1em;
-      clip-path: content-box;
+      clip-path: border-box;
       color: #000;
+      border: 2px solid black;
+      flex-direction: column;
+      font-family: "Tomorrow", sans-serif;
     }
 
     a.featured-project img {
-      width: 5em;
-      height: auto;
+      width: 100%;
+      height: 5em;
+      object-fit: cover;
+      border-bottom: 2px solid black;
     }
 
     a.featured-project span {
-      margin-left: 1em;
+      text-align: center;
+      margin: 0.5em;
     }
   </style>
   <body>
@@ -46,31 +52,35 @@ const featuredProjects = await getCollection("projects");
         something in this website that interests you!
       </p>
     </main>
-    <main id="featured-projects">
-      <h1>Featured Projects</h1>
-      <p>
-        Although I have worked on several personal projects throughout my
-        lifetime, below is what I'm comfortable showing off. Enjoy!
-      </p>
-      {
-        featuredProjects.map((project) => {
-          return (
-            <a href={"/projects#" + project.slug} class="featured-project">
+    <main id="blog">
+      <h1>Blog</h1>
+      <p>Recent blog posts here.</p>
+      <p><a href="/blog">Click here for more posts.</a></p>
+    </main>
+    <main id="featured">
+      <div></div>
+      <h1>Featured</h1>
+      <div id="featured-projects">
+        <h2>Projects</h2>
+        {
+          featuredProjects.map((project) => {
+            return (
+              <a href={"/projects#" + project.slug} class="featured-project">
                 {project.data.showImage && (
                   <Image src={project.data.image} alt={project.data.title} />
                 )}
                 <span>{project.data.title}</span>
-            </a>
-          );
-        })
-      }
-      <a href="/projects">
-        <p>Click here for more projects.</p>
-      </a>
-    </main>
-    <main id="blog">
-      <h1>Blog</h1>
-      <p>List of blog posts here.</p>
+              </a>
+            );
+          })
+        }
+        <p><a href="/projects">Click here for more projects.</a></p>
+      </div>
+      <div id="featured-blog">
+        <h2>Blog Posts</h2>
+        <p>List of featured blog posts here.</p>
+        <p><a href="/blog">Click here for more blog posts.</a></p>
+      </div>
     </main>
     <Footer />
   </body>

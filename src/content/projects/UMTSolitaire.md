@@ -1,7 +1,6 @@
 ---
 title: 'Unicode Mahjong Tile Solitaire'
 image: "./UMTSolitaire.png"
-showImage: true
 datePeriod: 'Nov 2021 - Nov 2024'
 pubDate: '11-13-2021'
 ---

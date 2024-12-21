@@ -121,7 +121,7 @@ const featuredPosts = (await getCollection("blog")).filter((i) =>
               </span>
               <a href={`/blog/${post.slug}/`}>
                 <h2>{post.data.title}</h2>
-                {post.data.showImage && (
+                {!post.data.image.src.includes("blank.png") && (
                   <Image src={post.data.image} alt={post.data.title} />
                 )}
               </a>
@@ -162,7 +162,7 @@ const featuredPosts = (await getCollection("blog")).filter((i) =>
           featuredProjects.map((project) => {
             return (
               <a href={`/projects#${project.slug}`} class="featured">
-                {project.data.showImage && (
+                {!project.data.image.src.includes("blank.png") && (
                   <Image src={project.data.image} alt={project.data.title} />
                 )}
                 <span>{project.data.title}</span>
@@ -178,7 +178,7 @@ const featuredPosts = (await getCollection("blog")).filter((i) =>
           featuredPosts.map((post) => {
             return (
               <a href={`/blog/${post.slug}/`} class="featured">
-                {post.data.showImage && (
+                {!post.data.image.src.includes("blank.png") && (
                   <Image src={post.data.image} alt={post.data.title} />
                 )}
                 <span>{post.data.title}</span>

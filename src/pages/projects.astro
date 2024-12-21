@@ -47,7 +47,7 @@ const projects = (await getCollection("projects")).sort(
             <div id={project.slug}>
               <h2>{project.data.title}</h2>
               <h3>{project.data.datePeriod}</h3>
-              {project.data.showImage && (
+              {!project.data.image.src.includes("blank.png") && (
                 <Image src={project.data.image} alt={project.data.title} />
               )}
               <p>

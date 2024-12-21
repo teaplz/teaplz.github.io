@@ -6,14 +6,31 @@ import Footer from "../components/Footer.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
-const featuredProjects = await getCollection("projects");
+import MarkdownIt from "markdown-it";
+
+const FEATURED_PROJECTS = ["umtsolitaire"];
+const FEATURED_POSTS = ["about-me"];
+
+const recentPosts = (await getCollection("blog"))
+  .sort(
+    (a, b) =>
+      (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0)
+  )
+  .slice(0, 5);
+
+const featuredProjects = (await getCollection("projects")).filter((i) =>
+  FEATURED_PROJECTS.includes(i.slug)
+);
+const featuredPosts = (await getCollection("blog")).filter((i) =>
+  FEATURED_POSTS.includes(i.slug)
+);
 ---
 
 <!doctype html>
 <html lang="en">
   <Head />
   <style>
-    a.featured-project {
+    a.featured {
       background: linear-gradient(to right, #aaa, #ccc);
       font-size: 1.5em;
       display: flex;
@@ -26,16 +43,53 @@ const featuredProjects = await getCollection("projects");
       font-family: "Tomorrow", sans-serif;
     }
 
-    a.featured-project img {
+    a.featured img {
       width: 100%;
       height: 5em;
       object-fit: cover;
       border-bottom: 2px solid black;
     }
 
-    a.featured-project span {
+    a.featured span {
       text-align: center;
       margin: 0.5em;
+    }
+
+    div.post {
+      margin-bottom: 2em;
+    }
+
+    div.post h2 {
+      margin: 0 0 0.25em 0;
+    }
+
+    div.post img {
+      display: block;
+      width: 100%;
+      height: 10em;
+      object-fit: cover;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    div.post span.post-date {
+      font-size: 0.75rem;
+      color: #555;
+    }
+
+    div.post span.post-date::before {
+      content: "—————";
+      color: #999;
+    }
+
+    div.post span.post-update {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    div.post summary {
+      margin-top: 1em;
+      margin-bottom: 0.25em;
     }
   </style>
   <body>
@@ -54,7 +108,49 @@ const featuredProjects = await getCollection("projects");
     </main>
     <main id="blog">
       <h1>Blog</h1>
-      <p>Recent blog posts here.</p>
+      {
+        recentPosts.map((post) => {
+          return (
+            <div id={post.slug} class="post">
+              <span class="post-date">
+                {post.data.pubDate?.toLocaleDateString("en-us", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </span>
+              <a href={`/blog/${post.slug}/`}>
+                <h2>{post.data.title}</h2>
+                {post.data.showImage && (
+                  <Image src={post.data.image} alt={post.data.title} />
+                )}
+              </a>
+              {post.data.description != null ? (
+                <summary>{post.data.description}</summary>
+              ) : (
+                <summary
+                  set:html={new MarkdownIt().render(
+                    post.body.trim().split("\n")[0]
+                  )}
+                />
+              )}
+              {
+                // prettier-ignore
+                post.data.lastUpdateDate && (
+                <span class="post-update">
+                  Last updated on {
+                  post.data.lastUpdateDate?.toLocaleDateString("en-us", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}.
+                </span>
+              )
+              }
+            </div>
+          );
+        })
+      }
       <p><a href="/blog">Click here for more posts.</a></p>
     </main>
     <main id="featured">
@@ -65,7 +161,7 @@ const featuredProjects = await getCollection("projects");
         {
           featuredProjects.map((project) => {
             return (
-              <a href={"/projects#" + project.slug} class="featured-project">
+              <a href={`/projects#${project.slug}`} class="featured">
                 {project.data.showImage && (
                   <Image src={project.data.image} alt={project.data.title} />
                 )}
@@ -78,7 +174,18 @@ const featuredProjects = await getCollection("projects");
       </div>
       <div id="featured-blog">
         <h2>Blog Posts</h2>
-        <p>List of featured blog posts here.</p>
+        {
+          featuredPosts.map((post) => {
+            return (
+              <a href={`/blog/${post.slug}/`} class="featured">
+                {post.data.showImage && (
+                  <Image src={post.data.image} alt={post.data.title} />
+                )}
+                <span>{post.data.title}</span>
+              </a>
+            );
+          })
+        }
         <p><a href="/blog">Click here for more blog posts.</a></p>
       </div>
     </main>

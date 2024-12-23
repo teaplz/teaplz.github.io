@@ -19,10 +19,10 @@ const recentPosts = (await getCollection("blog"))
   .slice(0, 5);
 
 const featuredProjects = (await getCollection("projects")).filter((i) =>
-  FEATURED_PROJECTS.includes(i.slug)
+  FEATURED_PROJECTS.includes(i.id)
 );
 const featuredPosts = (await getCollection("blog")).filter((i) =>
-  FEATURED_POSTS.includes(i.slug)
+  FEATURED_POSTS.includes(i.id)
 );
 ---
 
@@ -111,7 +111,7 @@ const featuredPosts = (await getCollection("blog")).filter((i) =>
       {
         recentPosts.map((post) => {
           return (
-            <div id={post.slug} class="post">
+            <div id={post.id} class="post">
               <span class="post-date">
                 {post.data.pubDate?.toLocaleDateString("en-us", {
                   year: "numeric",
@@ -119,7 +119,7 @@ const featuredPosts = (await getCollection("blog")).filter((i) =>
                   day: "numeric",
                 })}
               </span>
-              <a href={`/blog/${post.slug}/`}>
+              <a href={`/blog/${post.id}/`}>
                 <h2>{post.data.title}</h2>
                 {!post.data.image.src.includes("blank.png") && (
                   <Image src={post.data.image} alt={post.data.title} />
@@ -130,7 +130,7 @@ const featuredPosts = (await getCollection("blog")).filter((i) =>
               ) : (
                 <summary
                   set:html={new MarkdownIt().render(
-                    post.body.trim().split("\n")[0]
+                    post.body ? post.body.trim().split("\n")[0] : ""
                   )}
                 />
               )}
@@ -161,7 +161,7 @@ const featuredPosts = (await getCollection("blog")).filter((i) =>
         {
           featuredProjects.map((project) => {
             return (
-              <a href={`/projects#${project.slug}`} class="featured">
+              <a href={`/projects#${project.id}`} class="featured">
                 {!project.data.image.src.includes("blank.png") && (
                   <Image src={project.data.image} alt={project.data.title} />
                 )}
@@ -177,7 +177,7 @@ const featuredPosts = (await getCollection("blog")).filter((i) =>
         {
           featuredPosts.map((post) => {
             return (
-              <a href={`/blog/${post.slug}/`} class="featured">
+              <a href={`/blog/${post.id}/`} class="featured">
                 {!post.data.image.src.includes("blank.png") && (
                   <Image src={post.data.image} alt={post.data.title} />
                 )}

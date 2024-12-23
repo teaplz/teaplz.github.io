@@ -4,7 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
 import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 const projects = (await getCollection("projects")).sort(
   (a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0)
@@ -42,9 +42,9 @@ const projects = (await getCollection("projects")).sort(
       </p>
       {
         projects.map(async (project) => {
-          const { Content } = await project.render();
+          const { Content } = await render(project);
           return (
-            <div id={project.slug}>
+            <div id={project.id}>
               <h2>{project.data.title}</h2>
               <h3>{project.data.datePeriod}</h3>
               {!project.data.image.src.includes("blank.png") && (

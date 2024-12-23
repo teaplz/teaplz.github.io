@@ -61,7 +61,7 @@ const posts = (await getCollection("blog")).sort(
       {
         posts.map((post) => {
           return (
-            <div id={post.slug}>
+            <div id={post.id}>
               <span class="post-date">
                 {post.data.pubDate?.toLocaleDateString("en-us", {
                   year: "numeric",
@@ -69,7 +69,7 @@ const posts = (await getCollection("blog")).sort(
                   day: "numeric",
                 })}
               </span>
-              <a href={`/blog/${post.slug}/`}>
+              <a href={`/blog/${post.id}/`}>
                 <h2>{post.data.title}</h2>
                 {!post.data.image.src.includes("blank.png") && (
                   <Image src={post.data.image} alt={post.data.title} />
@@ -80,7 +80,7 @@ const posts = (await getCollection("blog")).sort(
               ) : (
                 <summary
                   set:html={new MarkdownIt().render(
-                    post.body.trim().split("\n")[0]
+                    post.body ? post.body.trim().split("\n")[0] : ""
                   )}
                 />
               )}

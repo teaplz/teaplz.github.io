@@ -15,9 +15,25 @@ const projects = (await getCollection("projects")).sort(
 <html lang="en">
   <Head />
   <style>
-    main div h2,
-    main div h3 {
+    main div {
+      overflow: auto;
+    }
+
+    main div {
+      margin-top: 2em;
+    }
+
+    main div:nth-of-type(n + 2) {
+      margin-top: 3em;
+    }
+
+    main div h2 {
       margin: 0;
+    }
+
+    main div span.date-period {
+      font-size: 1.17em;
+      color: #555;
     }
 
     main div img {
@@ -38,7 +54,7 @@ const projects = (await getCollection("projects")).sort(
       <h1>Projects</h1>
       <p>
         Although I have worked on several personal projects throughout my
-        lifetime, below is what I'm comfortable showing off. Enjoy!
+        lifetime, here is what I'm comfortable showing off:
       </p>
       {
         projects.map(async (project) => {
@@ -46,10 +62,10 @@ const projects = (await getCollection("projects")).sort(
           return (
             <div id={project.id}>
               <h2>{project.data.title}</h2>
-              <h3>{project.data.datePeriod}</h3>
               {!project.data.image.src.includes("blank.") && (
                 <Image src={project.data.image} alt={project.data.title} />
               )}
+              <span class="date-period">{project.data.datePeriod}</span>
               <p>
                 <Content />
               </p>

@@ -71,7 +71,7 @@ const posts = (await getCollection("blog")).sort(
               </span>
               <a href={`/blog/${post.id}/`}>
                 <h2>{post.data.title}</h2>
-                {!post.data.image.src.includes("blank.png") && (
+                {!post.data.image.src.includes("blank.") && (
                   <Image src={post.data.image} alt={post.data.title} />
                 )}
               </a>

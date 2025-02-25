@@ -1,6 +1,5 @@
 ---
 title: 'Tea, Please!'
-image: "./blank.png"
 datePeriod: 'Dec 2024 - ongoing'
 pubDate: '12-01-2024'
 ---

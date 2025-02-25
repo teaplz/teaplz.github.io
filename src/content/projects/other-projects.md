@@ -1,7 +1,5 @@
 ---
 title: 'Other Unreleased Projects'
-image: "./blank.png"
-datePeriod: ''
 ---
 
 Here are some of my attempted private projects:

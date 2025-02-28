@@ -8,9 +8,12 @@ import { getCollection } from "astro:content";
 
 import MarkdownIt from "markdown-it";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0)
-);
+const posts = (await getCollection("blog"))
+  .filter((i) => !i.data.unpublished)
+  .sort(
+    (a, b) =>
+      (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0)
+  );
 ---
 
 <!doctype html>

@@ -12,6 +12,7 @@ const FEATURED_PROJECTS = ["umtsolitaire"];
 const FEATURED_POSTS = [""];
 
 const recentPosts = (await getCollection("blog"))
+  .filter((i) => !i.data.unpublished)
   .sort(
     (a, b) =>
       (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0)

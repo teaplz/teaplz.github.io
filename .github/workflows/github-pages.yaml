@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  repository_dispatch:
+    types: [sync-blog-posts]
   workflow_dispatch:
 
 permissions:
@@ -15,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Main Site
         uses: actions/checkout@v4
       - name: Checkout Blog Posts
         uses: actions/checkout@v4

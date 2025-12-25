@@ -28,6 +28,14 @@ h1 {
   font-family: "Tomorrow", sans-serif;
 }
 
+code {
+  font-family: "Courier Prime", monospace;
+}
+
+pre {
+  padding: 1em;
+}
+
 /* body > * */
 header,
 main,

@@ -3,6 +3,8 @@ import Head from "../../components/Head.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 
+import Aside from "../../components/Aside.astro";
+
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -20,19 +22,25 @@ const { Content } = await render(post);
 <!doctype html>
 <html lang="en">
   <Head />
-  <style>
-    main img. {
+  <style is:global>
+    main img {
       display: block;
-      width: 100%;
-      height: 10em;
-      object-fit: cover;
+      max-width: 30em;
+      height: auto;
       margin-left: auto;
       margin-right: auto;
+    }
+
+    @media (max-width: 35em) {
+      main img {
+        max-width: 100%;
+      }
     }
   </style>
   <body>
     <Header />
     <main>
+      <h1>{post.data.title}</h1>
       {post.data.pubDate && (
         <span class="post-date">
           <!-- display: block -->
@@ -54,8 +62,7 @@ const { Content } = await render(post);
           </span>
         )}
         <hr/>
-      <h1>{post.data.title}</h1>
-      <Content />
+      <Content components={{Aside}}/>
     </main>
     <Footer />
   </body>

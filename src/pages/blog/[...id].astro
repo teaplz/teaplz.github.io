@@ -21,7 +21,7 @@ const { Content } = await render(post);
 
 <!doctype html>
 <html lang="en">
-  <Head />
+  <Head pageTitle={post.data.title}/>
   <style is:global>
     main img {
       display: block;

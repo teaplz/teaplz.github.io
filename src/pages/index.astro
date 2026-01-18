@@ -3,6 +3,8 @@ import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
+import { Content as MainBlurb } from "../content/main-blurb.mdx";
+
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
@@ -31,6 +33,20 @@ const featuredPosts = (await getCollection("blog")).filter((i) =>
 <html lang="en">
   <Head />
   <style>
+    #intro img.av {
+      float: left;
+      width: 15%;
+      height: 15%;
+      margin: 0.5rem;
+      border-radius: 50%;
+    }
+
+    @media (max-width: 45rem) {
+      #intro img.av {
+        display: none;
+      }
+    }
+
     a.featured {
       background: linear-gradient(to right, #aaa, #ccc);
       font-size: 1.5em;
@@ -96,16 +112,8 @@ const featuredPosts = (await getCollection("blog")).filter((i) =>
   <body>
     <Header />
     <main id="intro">
-      <!-- display: block -->
-      <p>
-        Hey there, I'm <strong>Tyler</strong>! I am a lifelong apprentice of
-        software engineering with passions in application development, retro
-        video game development, and retrocomputing in general.
-      </p>
-      <p>
-        I don't have much of a social media presence, but I hope you find
-        something in this website that interests you!
-      </p>
+      <img src="./av.jpg" alt="A picture of a mug with tea in it." class="av" />
+      <MainBlurb />
     </main>
     <main id="blog">
       <h1>Blog</h1>

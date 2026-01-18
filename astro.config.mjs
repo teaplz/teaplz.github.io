@@ -18,6 +18,7 @@ export default defineConfig({
             dest: "blog/images",
           },
         ],
+        silent: true,
       }),
     ],
   },

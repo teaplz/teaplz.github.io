@@ -44,7 +44,7 @@ const { Content } = await render(post);
       {post.data.pubDate && (
         <span class="post-date">
           <!-- display: block -->
-          Originally posted on {post.data.pubDate?.toLocaleDateString("en-us", {
+          Published on {post.data.pubDate?.toLocaleDateString("en-us", {
             year: "numeric",
             month: "short",
             day: "numeric",

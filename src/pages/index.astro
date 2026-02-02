@@ -11,7 +11,7 @@ import { getCollection } from "astro:content";
 import MarkdownIt from "markdown-it";
 
 const FEATURED_PROJECTS = ["umtsolitaire"];
-const FEATURED_POSTS = [""];
+const FEATURED_POSTS = ["umtsolitaire-retrospective"];
 
 const recentPosts = (await getCollection("blog"))
   .filter((i) => !i.data.unpublished)
